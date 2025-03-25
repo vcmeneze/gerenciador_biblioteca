@@ -33,6 +33,9 @@ public class Main {
                     System.out.println("Autor:");
                     String autor = scanner.nextLine();
 
+                    System.out.println("Genero: ");
+                    String genero = scanner.nextLine();
+
                     System.out.println("Ano de publicação:");
                     int ano = scanner.nextInt();
                     scanner.nextLine();
@@ -43,10 +46,11 @@ public class Main {
                     System.out.println("Informações inseridas pelo usuario:");
                     System.out.println("Título: " + nome);
                     System.out.println("Autor: " + autor);
+                    System.out.println("Genero: " + genero);
                     System.out.println("Ano de publicação: " + ano);
                     System.out.println("ISBN: " + isbn);
 
-                    biblioteca.add(new Livro(nome, autor, ano, isbn));
+                    biblioteca.add(new Livro(nome, autor, genero, ano, isbn));
                     System.out.println("Livro adicionado à biblioteca");
                     break;
 
