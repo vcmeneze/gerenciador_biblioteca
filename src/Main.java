@@ -67,6 +67,7 @@ public class Main {
                     biblioteca.stream()
                             .filter(livro -> livro.getIsbn().equals(search))
                             .forEach(System.out::println);
+                    // caso nao encontre o isbn na biblioteca integrar com api que pesquise na internet
                     break;
                 }
                 case 4: {
