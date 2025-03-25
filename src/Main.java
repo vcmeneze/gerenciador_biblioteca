@@ -64,10 +64,24 @@ public class Main {
                 case 3: {
                     System.out.println("Digite o ISBN que deseja buscar:");
                     String search = scanner.nextLine();
-                    biblioteca.stream()
+                    boolean encontrado = biblioteca.stream()
                             .filter(livro -> livro.getIsbn().equals(search))
-                            .forEach(System.out::println);
-                    // caso nao encontre o isbn na biblioteca integrar com api que pesquise na internet
+                            .peek(System.out::println)
+                            .count() > 0;
+
+                    if (!encontrado) {
+                        System.out.println("Deseja buscar pelo ISBN na internet? (y/n)");
+                        String resposta = scanner.nextLine();
+                        switch (resposta) {
+                            case "y": {
+                                //integrar api que busque na internet o ISBN do livro
+                            }
+                            case "n": {
+                                break;
+                            }
+                        }
+                    }
+
                     break;
                 }
                 case 4: {
