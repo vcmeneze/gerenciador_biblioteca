@@ -89,16 +89,24 @@ public class Main {
                         }
 
                         case 4: {
-                            System.out.println("Indique o número de ID do livro que deseja remover da lista: ");
-                            int toRemove = scanner.nextInt();
-                            scanner.nextLine();
+                            System.out.println("Digite o ISBN que deseja buscar:");
+                            String search = scanner.nextLine();
+                            boolean encontrado = biblioteca.stream()
+                                    .filter(livro -> livro.getIsbn().equals(search))
+                                    .peek(System.out::println)
+                                    .count() > 0;
 
-                            // o bool removido será true se existir um livro com a ID enviada pelo usuário
-                            boolean removido = biblioteca.removeIf(livro -> livro.getId() == toRemove);
-                            if (removido) {
-                                System.out.println("Livro removido!");
-                            } else {
-                                System.out.println("Não foi possível localilzar o livro com o id informado.");
+                            if (!encontrado) {
+                                System.out.println("Deseja buscar pelo ISBN na internet? (y/n)");
+                                String resposta = scanner.nextLine();
+                                switch (resposta) {
+                                    case "y": {
+                                        //integrar api que busque na internet o ISBN do livro
+                                    }
+                                    case "n": {
+                                        break;
+                                    }
+                                }
                             }
                         }
                     }
