@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 
@@ -7,12 +8,11 @@ public class Main {
         System.out.println("Seja bem vindo ao gerenciador de biblioteca! O que deseja fazer hoje?");
         System.out.println("1. Adicionar livro");
         System.out.println("2. Listar livros");
-        System.out.println("3. Buscar livros por ISBN");
+        System.out.println("3. Buscar livros");
         System.out.println("4. Remover livro");
         System.out.println("5. Encerrar");
     }
-
-    public static void gitmain(String[] args) {
+    public static void main(String[] args) {
         ArrayList <Livro> biblioteca = new ArrayList<>();
 
         Scanner scanner = new Scanner(System.in);
@@ -33,8 +33,7 @@ public class Main {
                     System.out.println("Autor:");
                     String autor = scanner.nextLine();
 
-                    System.out.println("Genero: ");
-                    String genero = scanner.nextLine();
+                    Generos genero = Livro.inputGenero();
 
                     System.out.println("Ano de publicação:");
                     int ano = scanner.nextInt();
@@ -56,7 +55,7 @@ public class Main {
 
                 }
                 case 2: {
-                    if (biblioteca.isEmpty()) {
+                    if (biblioteca.isEmpty()) { // verifica se a biblioteca está vazia
                         System.out.println("Não há nada para mostrar aqui.");
                     } else {
                         for (Livro livro : biblioteca) {
@@ -66,41 +65,47 @@ public class Main {
                     break;
                 }
                 case 3: {
-                    System.out.println("Digite o ISBN que deseja buscar:");
-                    String search = scanner.nextLine();
-                    boolean encontrado = biblioteca.stream()
-                            .filter(livro -> livro.getIsbn().equals(search))
-                            .peek(System.out::println)
-                            .count() > 0;
+                    System.out.println("Qual o filtro que deseja utilizar para buscar seu livro?");
+                    System.out.println("1. Autor");
+                    System.out.println("2. Ano de publicação");
+                    System.out.println("3. Gênero");
+                    System.out.println("4. ISBN");
+                    System.out.println("5. Título");
 
-                    if (!encontrado) {
-                        System.out.println("Deseja buscar pelo ISBN na internet? (y/n)");
-                        String resposta = scanner.nextLine();
-                        switch (resposta) {
-                            case "y": {
-                                //integrar api que busque na internet o ISBN do livro
-                            }
-                            case "n": {
-                                break;
+                    int filtro = scanner.nextInt();
+                    scanner.nextLine();
+
+                    switch(filtro) {
+                        case 1: {
+
+                        }
+
+                        case 2: {
+
+                        }
+
+                        case 3: {
+
+                        }
+
+                        case 4: {
+                            System.out.println("Indique o número de ID do livro que deseja remover da lista: ");
+                            int toRemove = scanner.nextInt();
+                            scanner.nextLine();
+
+                            // o bool removido será true se existir um livro com a ID enviada pelo usuário
+                            boolean removido = biblioteca.removeIf(livro -> livro.getId() == toRemove);
+                            if (removido) {
+                                System.out.println("Livro removido!");
+                            } else {
+                                System.out.println("Não foi possível localilzar o livro com o id informado.");
                             }
                         }
                     }
-                    break;
-                }
-                case 4: {
-                    System.out.println("Indique o número de ID do livro que deseja remover da lista: ");
-                    int toRemove = scanner.nextInt();
-                    scanner.nextLine();
 
-                    // o bool removido será true se existir um livro com a ID enviada pelo usuário
-                    boolean removido = biblioteca.removeIf(livro -> livro.getId() == toRemove);
-                    if (removido) {
-                        System.out.println("Livro removido!");
-                    } else {
-                        System.out.println("Não foi possível localilzar o livro com o id informado.");
-                    }
                 }
             }
         } while (opcao !=5); //encerra a aplicação
+        scanner.close();
     }
 }

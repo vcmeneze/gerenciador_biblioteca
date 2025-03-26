@@ -1,13 +1,17 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
 public class Livro {
     private String nome;
     private String autor;
-    private String genero;
+    private Generos genero;
     private int ano;
     private String isbn;
     private final long id;
     private static long proximoId = 1;  // Controla o próximo ID a ser atribuído
 
-    public Livro(String nome, String autor, String genero, int ano, String isbn) {
+    public Livro(String nome, String autor, Generos genero, int ano, String isbn) {
+
         this.id = proximoId++;  // Atribui o próximo ID e incrementa para o próximo livro
         this.nome = nome;
         this.autor = autor;
@@ -16,7 +20,7 @@ public class Livro {
     }
 
     public Livro() {
-        this("", "", "", 0, "");  // Chama o construtor principal com valores padrão
+        this("", "", null, 0, "");  // Chama o construtor principal com valores padrão
     }
 
     // Getters
@@ -35,7 +39,7 @@ public class Livro {
     public String getIsbn() {
         return isbn;
     }
-    public String getGenero() { return genero; }
+    public Generos getGenero() { return genero; }
 
     // Setters
     public void setNome(String nome) {
@@ -50,11 +54,29 @@ public class Livro {
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
-    public void setGenero(String genero) { this.genero = genero; }
+    public void setGenero(Generos genero) { this.genero = genero; }
 
     @Override
     public String toString() {
         return "ID: " + id + ", Título: " + nome + ", Autor: " + autor +
                 ", Ano: " + ano + ", ISBN: " + isbn;
     }
+
+
+    public static Generos inputGenero(){
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Digite o gênero do livro (" + Arrays.toString(Generos.values()) + "): "); //arrays.toSting converte o valor do enum Generos para uma string
+        String genero = scanner.nextLine().toUpperCase(); // padronizando o input em caixa alta
+
+        try {
+            return Generos.valueOf(genero); // buscando no Enum Generos o valor do input genero
+        } catch (IllegalArgumentException e) {
+            System.out.println("Gênero não aceito pela biblioteca, definindo como OUTROS por padrão.");
+            return Generos.OUTROS; // genero padrao
+        }
+
+
+    }
+
 }
