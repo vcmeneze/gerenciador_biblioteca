@@ -15,6 +15,7 @@ public class Livro {
         this.id = proximoId++;  // Atribui o próximo ID e incrementa para o próximo livro
         this.nome = nome;
         this.autor = autor;
+        this.genero = genero;
         this.ano = ano;
         this.isbn = isbn;
     }

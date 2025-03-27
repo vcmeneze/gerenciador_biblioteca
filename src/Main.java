@@ -65,7 +65,7 @@ public class Main {
                     break;
                 }
                 case 3: {
-                    System.out.println("Qual o filtro que deseja utilizar para buscar seu livro?");
+                    System.out.println("MENU PRINCIPAL");
                     System.out.println("1. Autor");
                     System.out.println("2. Ano de publicação");
                     System.out.println("3. Gênero");
@@ -77,15 +77,42 @@ public class Main {
 
                     switch(filtro) {
                         case 1: {
-
+                            System.out.println("Digite o nome do autor: ");
+                            String search = scanner.nextLine();
+                            biblioteca.stream()
+                                    .filter(livro -> livro.getAutor().equals(search))
+                                    .forEach(System.out::println);
+                            break;
                         }
 
                         case 2: {
+                            System.out.println("DIgite o ano de publicação: ");
+                            String search = scanner.nextLine();
 
+                            try {
+                                int anoBusca = Integer.parseInt(search);
+                                biblioteca.stream()
+                                        .filter(livro -> livro.getAno() == anoBusca)
+                                        .forEach(System.out::println);
+                            } catch (NumberFormatException e) {
+                                System.out.println("Erro: o número não é válido");
+                            }
+                            break;
                         }
 
                         case 3: {
+                            System.out.println("Digite o genero desejado: ");
+                            String search = scanner.nextLine().toUpperCase();
 
+                            try {
+                                Generos findGenero = Generos.valueOf(search);
+                                biblioteca.stream()
+                                        .filter(livro -> livro.getGenero() == findGenero)
+                                        .forEach(System.out::println);
+                            } catch (IllegalArgumentException e) {
+                                System.out.println("Gênero inválido! Use um dos valores: " + Arrays.toString(Generos.values()));
+                            }
+                            break;
                         }
 
                         case 4: {
@@ -103,7 +130,29 @@ public class Main {
                                     case "y": {
                                         //integrar api que busque na internet o ISBN do livro
                                     }
-                                    case "n": {
+                                    default: {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        case 5: {
+                            System.out.println("Digite o nome do livro: ");
+                            String search = scanner.nextLine();
+                            boolean encontrado = biblioteca.stream()
+                                    .filter(livro -> livro.getNome().equals(search))
+                                    .peek(System.out::println)
+                                    .count() > 0;
+
+                            if (!encontrado) {
+                                System.out.println("Deseja buscar pelo livro na internet? (y/n)");
+                                String resposta = scanner.nextLine();
+                                switch (resposta) {
+                                    case "y": {
+                                        //integrar api
+                                    }
+                                    default: {
                                         break;
                                     }
                                 }
@@ -111,6 +160,10 @@ public class Main {
                         }
                     }
 
+                }
+
+                case 4: {
+                    //remover livros
                 }
             }
         } while (opcao !=5); //encerra a aplicação
